@@ -7,6 +7,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - MSRV bumped to 1.75.0 (because of `-> impl Trait` in a trait method).
 - Renamed `AsMutDeserializer` -> `AsTransientDeserializer`.
+- Added `Deref` and `DerefMut` impls for `PersistentDeserializer`.
 
 
 ## [0.1.0] - 2024-10-27

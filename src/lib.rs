@@ -12,6 +12,8 @@
     unused_qualifications
 )]
 
+use core::ops::{Deref, DerefMut};
+
 use serde::{de::Visitor, serde_if_integer128, Deserializer};
 
 /// A newtype implementing [`serde::Deserializer`] if the type `D` implements [`AsTransientDeserializer`].
@@ -22,6 +24,22 @@ impl<D> PersistentDeserializer<D> {
     /// Wraps the deserializer object.
     pub fn new(deserializer: D) -> Self {
         Self(deserializer)
+    }
+}
+
+impl<D> Deref for PersistentDeserializer<D> {
+    type Target = D;
+
+    #[inline]
+    fn deref(&self) -> &Self::Target {
+        &self.0
+    }
+}
+
+impl<D> DerefMut for PersistentDeserializer<D> {
+    #[inline]
+    fn deref_mut(&mut self) -> &mut Self::Target {
+        &mut self.0
     }
 }
 
