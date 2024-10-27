@@ -21,25 +21,25 @@ impl<'a, 'de> Deserializer<'de> for MyDeserializerRef<'a, 'de> {
 }
 
 impl<'de> MyDeserializer<'de> {
-    fn as_mut_deserializer<'a>(&'a mut self) -> MyDeserializerRef<'a, 'de> { ... }
+    fn as_transient_deserializer<'a>(&'a mut self) -> MyDeserializerRef<'a, 'de> { ... }
 }
 
 impl<'de> Deserializer<'de> for MyDeserializer<'de> {
     fn deserialize_any<V: Visitor<'de>>(mut self, visitor: V) -> Result<V::Value, Self::Error>
     {
-        self.as_mut_deserializer().deserialize_any(visitor)
+        self.as_transient_deserializer().deserialize_any(visitor)
     }
 
     fn deserialize_bool<V: Visitor<'de>>(mut self, visitor: V) -> Result<V::Value, Self::Error>
     {
-        self.as_mut_deserializer().deserialize_bool(visitor)
+        self.as_transient_deserializer().deserialize_bool(visitor)
     }
 
     // ... and dozens more methods with the same content
 }
 ```
 
-This crate instead requires one to only provide an implementation of [`AsMutDeserializer`] for their type, and then the [`PersistentDeserializer`] wrapper will automatically derive [`serde::Deserializer`](https://docs.rs/serde/latest/serde/trait.Deserializer.html).
+This crate instead requires one to only provide an implementation of [`AsTransientDeserializer`] for their type, and then the [`PersistentDeserializer`] wrapper will automatically derive [`serde::Deserializer`](https://docs.rs/serde/latest/serde/trait.Deserializer.html).
 
 
 [crate-image]: https://img.shields.io/crates/v/serde-persistent-deserializer.svg

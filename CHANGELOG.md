@@ -6,6 +6,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [0.2.0] - in development
 
 - MSRV bumped to 1.75.0 (because of `-> impl Trait` in a trait method).
+- Renamed `AsMutDeserializer` -> `AsTransientDeserializer`.
 
 
 ## [0.1.0] - 2024-10-27
