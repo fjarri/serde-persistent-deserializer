@@ -62,97 +62,107 @@ pub trait AsTransientDeserializer<'de> {
 impl<'de, D: AsTransientDeserializer<'de>> Deserializer<'de> for PersistentDeserializer<D> {
     type Error = <D as AsTransientDeserializer<'de>>::Error;
 
+    #[inline]
     fn deserialize_any<V: Visitor<'de>>(mut self, visitor: V) -> Result<V::Value, Self::Error> {
         self.0.as_transient_deserializer().deserialize_any(visitor)
     }
 
+    #[inline]
     fn deserialize_bool<V: Visitor<'de>>(mut self, visitor: V) -> Result<V::Value, Self::Error> {
         self.0.as_transient_deserializer().deserialize_bool(visitor)
     }
 
+    #[inline]
     fn deserialize_i8<V: Visitor<'de>>(mut self, visitor: V) -> Result<V::Value, Self::Error> {
         self.0.as_transient_deserializer().deserialize_i8(visitor)
     }
 
+    #[inline]
     fn deserialize_i16<V: Visitor<'de>>(mut self, visitor: V) -> Result<V::Value, Self::Error> {
         self.0.as_transient_deserializer().deserialize_i16(visitor)
     }
 
+    #[inline]
     fn deserialize_i32<V: Visitor<'de>>(mut self, visitor: V) -> Result<V::Value, Self::Error> {
         self.0.as_transient_deserializer().deserialize_i32(visitor)
     }
 
+    #[inline]
     fn deserialize_i64<V: Visitor<'de>>(mut self, visitor: V) -> Result<V::Value, Self::Error> {
         self.0.as_transient_deserializer().deserialize_i64(visitor)
     }
 
     serde_if_integer128! {
+        #[inline]
         fn deserialize_i128<V: Visitor<'de>>(mut self, visitor: V) -> Result<V::Value, Self::Error>
         {
             self.0.as_transient_deserializer().deserialize_i128(visitor)
         }
     }
 
+    #[inline]
     fn deserialize_u8<V: Visitor<'de>>(mut self, visitor: V) -> Result<V::Value, Self::Error> {
         self.0.as_transient_deserializer().deserialize_u8(visitor)
     }
 
+    #[inline]
     fn deserialize_u16<V: Visitor<'de>>(mut self, visitor: V) -> Result<V::Value, Self::Error> {
         self.0.as_transient_deserializer().deserialize_u16(visitor)
     }
 
+    #[inline]
     fn deserialize_u32<V: Visitor<'de>>(mut self, visitor: V) -> Result<V::Value, Self::Error> {
         self.0.as_transient_deserializer().deserialize_u32(visitor)
     }
 
+    #[inline]
     fn deserialize_u64<V: Visitor<'de>>(mut self, visitor: V) -> Result<V::Value, Self::Error> {
         self.0.as_transient_deserializer().deserialize_u64(visitor)
     }
 
     serde_if_integer128! {
+        #[inline]
         fn deserialize_u128<V: Visitor<'de>>(mut self, visitor: V) -> Result<V::Value, Self::Error>
         {
             self.0.as_transient_deserializer().deserialize_u128(visitor)
         }
     }
 
+    #[inline]
     fn deserialize_f32<V: Visitor<'de>>(mut self, visitor: V) -> Result<V::Value, Self::Error> {
         self.0.as_transient_deserializer().deserialize_f32(visitor)
     }
 
+    #[inline]
     fn deserialize_f64<V: Visitor<'de>>(mut self, visitor: V) -> Result<V::Value, Self::Error> {
         self.0.as_transient_deserializer().deserialize_f64(visitor)
     }
 
+    #[inline]
     fn deserialize_char<V: Visitor<'de>>(mut self, visitor: V) -> Result<V::Value, Self::Error> {
         self.0.as_transient_deserializer().deserialize_char(visitor)
     }
 
+    #[inline]
     fn deserialize_str<V: Visitor<'de>>(mut self, visitor: V) -> Result<V::Value, Self::Error> {
         self.0.as_transient_deserializer().deserialize_str(visitor)
     }
 
-    #[cfg(not(feature = "alloc"))]
+    #[inline]
     fn deserialize_string<V: Visitor<'de>>(mut self, visitor: V) -> Result<V::Value, Self::Error> {
         self.0
             .as_transient_deserializer()
             .deserialize_string(visitor)
     }
 
-    #[cfg(feature = "alloc")]
-    fn deserialize_string<V: Visitor<'de>>(mut self, visitor: V) -> Result<V::Value, Self::Error> {
-        self.0
-            .as_transient_deserializer()
-            .deserialize_string(visitor)
-    }
-
+    #[inline]
     fn deserialize_bytes<V: Visitor<'de>>(mut self, visitor: V) -> Result<V::Value, Self::Error> {
         self.0
             .as_transient_deserializer()
             .deserialize_bytes(visitor)
     }
 
-    #[cfg(not(feature = "alloc"))]
+    #[inline]
     fn deserialize_byte_buf<V: Visitor<'de>>(
         mut self,
         visitor: V,
@@ -162,26 +172,19 @@ impl<'de, D: AsTransientDeserializer<'de>> Deserializer<'de> for PersistentDeser
             .deserialize_byte_buf(visitor)
     }
 
-    #[cfg(feature = "alloc")]
-    fn deserialize_byte_buf<V: Visitor<'de>>(
-        mut self,
-        visitor: V,
-    ) -> Result<V::Value, Self::Error> {
-        self.0
-            .as_transient_deserializer()
-            .deserialize_byte_buf(visitor)
-    }
-
+    #[inline]
     fn deserialize_option<V: Visitor<'de>>(mut self, visitor: V) -> Result<V::Value, Self::Error> {
         self.0
             .as_transient_deserializer()
             .deserialize_option(visitor)
     }
 
+    #[inline]
     fn deserialize_unit<V: Visitor<'de>>(mut self, visitor: V) -> Result<V::Value, Self::Error> {
         self.0.as_transient_deserializer().deserialize_unit(visitor)
     }
 
+    #[inline]
     fn deserialize_unit_struct<V: Visitor<'de>>(
         mut self,
         name: &'static str,
@@ -192,6 +195,7 @@ impl<'de, D: AsTransientDeserializer<'de>> Deserializer<'de> for PersistentDeser
             .deserialize_unit_struct(name, visitor)
     }
 
+    #[inline]
     fn deserialize_newtype_struct<V: Visitor<'de>>(
         mut self,
         name: &'static str,
@@ -202,10 +206,12 @@ impl<'de, D: AsTransientDeserializer<'de>> Deserializer<'de> for PersistentDeser
             .deserialize_newtype_struct(name, visitor)
     }
 
+    #[inline]
     fn deserialize_seq<V: Visitor<'de>>(mut self, visitor: V) -> Result<V::Value, Self::Error> {
         self.0.as_transient_deserializer().deserialize_seq(visitor)
     }
 
+    #[inline]
     fn deserialize_tuple<V: Visitor<'de>>(
         mut self,
         len: usize,
@@ -216,6 +222,7 @@ impl<'de, D: AsTransientDeserializer<'de>> Deserializer<'de> for PersistentDeser
             .deserialize_tuple(len, visitor)
     }
 
+    #[inline]
     fn deserialize_tuple_struct<V: Visitor<'de>>(
         mut self,
         name: &'static str,
@@ -227,10 +234,12 @@ impl<'de, D: AsTransientDeserializer<'de>> Deserializer<'de> for PersistentDeser
             .deserialize_tuple_struct(name, len, visitor)
     }
 
+    #[inline]
     fn deserialize_map<V: Visitor<'de>>(mut self, visitor: V) -> Result<V::Value, Self::Error> {
         self.0.as_transient_deserializer().deserialize_map(visitor)
     }
 
+    #[inline]
     fn deserialize_struct<V: Visitor<'de>>(
         mut self,
         name: &'static str,
@@ -242,6 +251,7 @@ impl<'de, D: AsTransientDeserializer<'de>> Deserializer<'de> for PersistentDeser
             .deserialize_struct(name, fields, visitor)
     }
 
+    #[inline]
     fn deserialize_enum<V: Visitor<'de>>(
         mut self,
         name: &'static str,
@@ -253,6 +263,7 @@ impl<'de, D: AsTransientDeserializer<'de>> Deserializer<'de> for PersistentDeser
             .deserialize_enum(name, variants, visitor)
     }
 
+    #[inline]
     fn deserialize_identifier<V: Visitor<'de>>(
         mut self,
         visitor: V,
@@ -262,6 +273,7 @@ impl<'de, D: AsTransientDeserializer<'de>> Deserializer<'de> for PersistentDeser
             .deserialize_identifier(visitor)
     }
 
+    #[inline]
     fn deserialize_ignored_any<V: Visitor<'de>>(
         mut self,
         visitor: V,
@@ -271,6 +283,7 @@ impl<'de, D: AsTransientDeserializer<'de>> Deserializer<'de> for PersistentDeser
             .deserialize_ignored_any(visitor)
     }
 
+    #[inline]
     fn is_human_readable(&self) -> bool {
         self.0.is_human_readable()
     }
