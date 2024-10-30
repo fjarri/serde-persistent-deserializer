@@ -1,6 +1,6 @@
 [package]
 name = "serde-persistent-deserializer"
-version = "0.3.0-dev"
+version = "0.3.0"
 edition = "2018"
 license = "MIT"
 authors = ["Bogdan Opanchuk <bogdan@opanchuk.net>"]
