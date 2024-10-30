@@ -50,17 +50,14 @@ pub trait AsTransientDeserializer<'de> {
 
     /// Produces a deserializer object.
     fn as_transient_deserializer<'a>(&'a mut self) -> impl Deserializer<'de, Error = Self::Error>;
-
-    /// Determine whether `Deserialize` implementations should expect to deserialize
-    /// their human-readable form.
-    ///
-    /// This method will be called in the `Deserializer::is_human_readable` impl for
-    /// [`PersistentDeserializer`].
-    fn is_human_readable(&self) -> bool;
 }
 
 impl<'de, D: AsTransientDeserializer<'de>> Deserializer<'de> for PersistentDeserializer<D> {
     type Error = <D as AsTransientDeserializer<'de>>::Error;
+
+    // Note that we do not define `is_human_readable()`.
+    // None of the methods here use it, so it wouldn't have any effect
+    // (and we would have to add a method to `AsTransientDeserializer` if we needed it).
 
     #[inline]
     fn deserialize_any<V: Visitor<'de>>(mut self, visitor: V) -> Result<V::Value, Self::Error> {
@@ -281,10 +278,5 @@ impl<'de, D: AsTransientDeserializer<'de>> Deserializer<'de> for PersistentDeser
         self.0
             .as_transient_deserializer()
             .deserialize_ignored_any(visitor)
-    }
-
-    #[inline]
-    fn is_human_readable(&self) -> bool {
-        self.0.is_human_readable()
     }
 }
