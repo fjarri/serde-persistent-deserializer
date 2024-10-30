@@ -11,7 +11,7 @@ When one writes an implementation of [`serde::Deserializer`](https://docs.rs/ser
 But if someone else wants to be generic over types that implement `Deserializer` (e.g. when using the [`erased-serde`](https://docs.rs/erased-serde) crate), it necessarily produces higher-ranked bounds on lifetimes (something along the lines of `for<'a, 'de> &'a mut D: Deserializer<'de>`), which cannot be encapsulated in a trait and will be propagated to all dependent generic code (a current limitation of Rust; see <https://github.com/rust-lang/rust/issues/50346> and other related issues). Also, using [`erased_serde::Deserializer::erase`](https://docs.rs/erased-serde/latest/erased_serde/trait.Deserializer.html#method.erase) on [`serde::Deserializer`](https://docs.rs/serde/latest/serde/trait.Deserializer.html) types in a real world code is not trivial (see <https://github.com/dtolnay/erased-serde/issues/107> for an example).
 
 To amend that, it would be convenient to additionally implement [`serde::Deserializer`](https://docs.rs/serde/latest/serde/trait.Deserializer.html) on the object itself, which involves writing a long sheet of boilerplate like
-```ignore
+```rust
 struct MyDeserializerRef<'a, 'de> {
     de: &'a mut MyDeserializer<'de>
 }
@@ -39,7 +39,7 @@ impl<'de> Deserializer<'de> for MyDeserializer<'de> {
 }
 ```
 
-This crate instead requires one to only provide an implementation of [`AsTransientDeserializer`] for their type, and then the [`PersistentDeserializer`] wrapper will automatically derive [`serde::Deserializer`](https://docs.rs/serde/latest/serde/trait.Deserializer.html).
+This crate instead requires one to only provide an implementation of [`AsTransientDeserializer`](https://docs.rs/serde-persistent-deserializer/latest/serde_persistent_deserializer/trait.AsTransientDeserializer.html) for their type, and then the [`PersistentDeserializer`](https://docs.rs/serde-persistent-deserializer/latest/serde_persistent_deserializer/struct.PersistentDeserializer.html) wrapper will automatically derive [`serde::Deserializer`](https://docs.rs/serde/latest/serde/trait.Deserializer.html).
 
 
 [crate-image]: https://img.shields.io/crates/v/serde-persistent-deserializer.svg
