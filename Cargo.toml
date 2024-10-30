@@ -13,11 +13,6 @@ rust-version = "1.75.0"
 [dependencies]
 serde = { version = "1", default-features = false }
 
-[dev-dependencies]
-
-[features]
-alloc = ["serde/alloc"]
-
 [package.metadata.docs.rs]
 all-features = true
 rustdoc-args = ["--cfg", "docsrs"]
